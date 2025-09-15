@@ -1,22 +1,21 @@
-name: TruffleHog Secret Scan
+name: TruffleHog Actions Scan 🐽🔑
 
 on:
-  push:
-    branches:
-      - '**'
   pull_request:
+    branches:
+      - main
 
 jobs:
-  trufflehog-scan:
+  scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout PR branch
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # get full history so diff scanning works
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
-      - name: Run TruffleHog
-        uses: trufflesecurity/trufflehog@main
+      - name: Run trufflehog-actions-scan
+        uses: edplato/trufflehog-actions-scan@master
         with:
-          path: .
-          extra_args: --json --results=verified,unknown --regex --entropy --scan-all-files --debug --since-commit=0000000
+            scanArguments: "--regex --entroipy=True --max_depth_50 --rules /regexes.json""
