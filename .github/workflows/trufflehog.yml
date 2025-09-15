@@ -19,5 +19,4 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: .
-          # Remove --fail here — it’s automatic
-          extra_args: --json --results=verified,unknown
+          extra_args: --json --results=verified,unknown --regex --entropy --scan-all-files --debug --since-commit=0000000
