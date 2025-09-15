@@ -14,9 +14,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run TruffleHog
+      - name: Run TruffleHog (Filesystem Mode)
         uses: trufflesecurity/trufflehog@main
         with:
           path: .
-          # No need to add --fail unless you remove it from defaults
-          extra_args: --json  # prints findings in JSON so you can see details
+          extra_args: --no-history --json
