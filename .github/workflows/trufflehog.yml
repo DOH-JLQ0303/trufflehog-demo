@@ -1,0 +1,21 @@
+name: TruffleHog Secret Scan
+
+on:
+  push:
+    branches:
+      - main
+      - '**' # runs on all branches
+  pull_request:
+
+jobs:
+  trufflehog-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: .
+          extra_args: --fail  # fails the job if secrets are found
